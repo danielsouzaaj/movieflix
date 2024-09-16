@@ -1,0 +1,23 @@
+header {
+    background-color: #000000;
+}
+
+header .container {
+    height: 5rem;
+    padding: 0 6.125rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.favoritos {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+}

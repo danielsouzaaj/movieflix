@@ -17,3 +17,8 @@ ul {
 a {
   text-decoration: none;
 }
+
+.container {
+  max-width: 90rem;
+  margin: 0 auto;
+}
