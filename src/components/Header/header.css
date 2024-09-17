@@ -4,7 +4,6 @@ header {
 
 header .container {
     height: 5rem;
-    padding: 0 6.125rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
