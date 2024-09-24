@@ -15,7 +15,7 @@ function Favoritos() {
         const filtered = favoritos.filter(item => item.id !== id)
 
         setFavoritos(filtered)
-        localStorage.setItem('@movieflix', filtered)
+        localStorage.setItem('@movieflix', JSON.stringify(filtered))
         alert('Filme excluido!')
     }
 
@@ -23,6 +23,8 @@ function Favoritos() {
         <div className="favoritos">
             <div className="container">
                 <h1>Meus filmes</h1>
+                
+                {favoritos.length === 0 && <span>Você não possui nenhum filme!</span>}
 
                 <ul>
                     {favoritos.map((filme) => {

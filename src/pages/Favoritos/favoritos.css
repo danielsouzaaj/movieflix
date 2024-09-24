@@ -3,12 +3,17 @@
 }
 
 .favoritos h1,
-.favoritos strong {
+.favoritos strong,
+.favoritos span {
     color: #111827;
 }
 
 .favoritos h1 {
     margin: 2.5rem 0;
+}
+
+.favoritos span {
+    font-size: 1.5rem;
 }
 
 .favoritos strong {
