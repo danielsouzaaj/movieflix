@@ -60,7 +60,7 @@ function Home() {
 
             setTotalPages(total_pages)
 
-            if (currentPage === 1) {
+            if (currentPage === 1 && !search) {
                 setSlider(results.slice(0, 5))
             }
             
