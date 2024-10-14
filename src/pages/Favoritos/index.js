@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import placeholderImg from '../../assets/placeholder.jpg';
 import './favoritos.css';
 
 function Favoritos() {
@@ -32,11 +35,28 @@ function Favoritos() {
 
                         return (
                             <li key={filme.id}>
-                                <strong>{filme.title}</strong>
+                                {
+                                    filme.poster_path !== null ? (
+                                        <LazyLoadImage
+                                            src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} 
+                                            alt={filme.title} 
+                                            effect="blur"
+                                            placeholderSrc={placeholderImg}
+                                        />
+                                    ) : (
+                                        <img 
+                                            src={placeholderImg} 
+                                            alt={filme.title} 
+                                        />
+                                    )
+                                }
+                                
                                 <div>
-                                    <Link to={`/filme/${filme.id}`}>Detalhes</Link>
-                                    <button onClick={() => excluir(filme.id)}>Excluir</button>
-                                </div>       
+                                    <div className="btn-container">
+                                        <Link to={`/filme/${filme.id}`}>Detalhes</Link>
+                                        <button onClick={() => excluir(filme.id)}>{<FaRegTrashAlt/>}</button>
+                                    </div>       
+                                </div>
                             </li>
                         )
                     })}
