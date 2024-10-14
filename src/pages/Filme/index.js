@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { FaPlus, FaAngleLeft } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import placeholderImg from '../../assets/placeholder.jpg';
 import api from "../../services/api";
 import './filme.css'
 
@@ -61,23 +65,42 @@ function Filme() {
     }
 
     return (
-        <div className="container">
-            <div className="detalhes">
-                <img src={`https://image.tmdb.org/t/p/w300/${filme.poster_path}`} alt={filme.title} />
-                <div className="detalhes-info">
-                    <h1>{filme.title}</h1>
-                    <p>{filme.genres.map(genre => genre.name).join(', ')}</p>
-                    <p>{filme.release_date.slice(0, 4)} &sdot; {timeConvert(filme.runtime)}</p>
+        <div className="detalhes" style={ {backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.6)), url('https://image.tmdb.org/t/p/original/${filme.backdrop_path}')`}}>
+            <div className="container">
+                <Link className="home" to="/"><span><FaAngleLeft/></span>Voltar</Link>
+                <div className="detalhes-film">
+                    <div className="detalhes-info">
+                        <h1>{filme.title}</h1>
+                        <p className="genres">{filme.genres.map(genre => genre.name).join(', ')}</p>
+                        <p className="runtime">{filme.release_date.slice(0, 4)} &sdot; {timeConvert(filme.runtime)}</p>
 
-                    <div className="detalhes-btn">
-                        <a target="blank" rel="external" href={`https://www.youtube.com/results?search_query=${filme.title} trailer`}>Trailer</a>
-                        <button onClick={saveMovie}>Salvar</button>
+                        <div className="sinopse">
+                            <p>{filme.overview}</p>
+                        </div>
+
+                        <div className="detalhes-btn">
+                            <a target="blank" rel="external" href={`https://www.youtube.com/results?search_query=${filme.title} trailer`}>Trailer</a>
+                            <button onClick={saveMovie}><FaPlus className="plus-icon" /> Salvar</button>
+                        </div>
                     </div>
-                    
-                    <div className="sinopse">
-                        <h2>Sinopse</h2>
-                        <p>{filme.overview}</p>
-                    </div>
+
+                    {
+                        filme.poster_path !== null ? (
+                            <LazyLoadImage 
+                                src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} 
+                                alt={filme.title} 
+                                title={filme.title}
+                                effect="blur"
+                                placeholderSrc={placeholderImg}
+                            />
+                        ) : (
+                            <img 
+                                src={placeholderImg} 
+                                alt={filme.title} 
+                                title={filme.title}
+                            />
+                        )
+                    }
                 </div>
             </div>
         </div>
