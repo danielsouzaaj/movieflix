@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import {Swiper, SwiperSlide} from "swiper/react";
 import { EffectFade } from "swiper/modules";
+import { FaSearch } from 'react-icons/fa';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import placeholderImg from '../../assets/placeholder.jpg';
 import api from "../../services/api";
 import './home.css'
 
@@ -98,48 +101,69 @@ function Home() {
 
     return (
         <div className="home">
-            <Swiper
-                modules={[EffectFade]}
-                effect="fade"
-                slidesPerView={1}
-                pagination={{clickable: true}}
-                navigation
-                autoplay={{delay:8000}}
-            >
-                {slider.map(item => {
-                    return (
-                        <SwiperSlide key={item.id}>
-                            <div className="slide-item">
-                                <img src={`https://image.tmdb.org/t/p/original/${item.backdrop_path}`} alt={item.title}/>
-                                <div className="slide-detalhes">
-                                    <span>{formatDate(item.release_date)}</span>
-                                    <h2>{item.title}</h2>
-                                    <a target="blank" rel="external" href={`https://www.youtube.com/results?search_query=${item.title} trailer`}>Trailer</a>
-                                    <Link className="btn-detalhes" to={`filme/${item.id}`}>Detalhes</Link>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                    )
-                })}
-            </Swiper>
             <div className="container">
+                <Swiper
+                    modules={[EffectFade]}
+                    effect="fade"
+                    slidesPerView={1}
+                    pagination={{clickable: true}}
+                    navigation
+                    autoplay={{delay:8000}}
+                >
+                    {slider.map(item => {
+                        return (
+                            <SwiperSlide key={item.id}>
+                                <div className="slide-item">
+                                    <img src={`https://image.tmdb.org/t/p/original/${item.backdrop_path}`} alt={item.title}/>
+                                    <div className="slide-detalhes">
+                                        <span>{formatDate(item.release_date)}</span>
+                                        <h2>{item.title}</h2>
+                                        <Link className="btn-detalhes" to={`filme/${item.id}`}>Detalhes</Link>
+                                        <a className="btn-trailer" target="blank" rel="external" href={`https://www.youtube.com/results?search_query=${item.title} trailer`}>Trailer</a>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        )
+                    })}
+                </Swiper>
+
                 <form onSubmit={handleSubmit}>
-                    <input
-                        type="shearch"
-                        name="shearch"
-                        onChange={handleChange}
-                        placeholder="Buscar por um filme"
-                        value={search}
-                    />
+                    <label className="input-wrapper">
+                        <FaSearch className="search-icon" />
+                        <input
+                            className="search"
+                            type="shearch"
+                            name="shearch"
+                            onChange={handleChange}
+                            placeholder="Buscar por um filme"
+                            value={search}
+                        />
+                    </label>
                 </form>
                 <div className="lista-filmes">
                     {filmes.map((filme) => {
                         return (
                             <article key={filme.id}>
                                 <Link to={`filme/${filme.id}`}>
-                                    <img src={`https://image.tmdb.org/t/p/w400/${filme.poster_path}`} alt={filme.title} />
+                                    <span className="vote">{filme.vote_average.toFixed(1)}</span>
+                                    {
+                                        filme.poster_path !== null ? (
+                                            <LazyLoadImage 
+                                                effect="blur"
+                                                src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} 
+                                                alt={filme.title} 
+                                                placeholderSrc={placeholderImg}
+                                            />
+                                        ) : (
+                                            <img 
+                                                src={placeholderImg}
+                                                alt={filme.title}
+                                            />
+                                        )
+                                    }
+                                    
                                     <p>{formatDate(filme.release_date)}</p>
-                                    <strong>{filme.title}</strong>
+                                    <strong title={filme.title}>{filme.title.substring(0, 30)} {filme.title.length > 30 && '...'}</strong>
                                 </Link>
                             </article>
                         )
