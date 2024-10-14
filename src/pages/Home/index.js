@@ -79,13 +79,16 @@ function Home() {
                 setCurrentPage((currentPage) => currentPage + 1)
             }
         }
+
         function handleScroll() {
-            const { scrollTop, scrollHeight, clientHeight } = document.documentElement
-    
-            if (scrollTop + clientHeight >= scrollHeight) {
+            const { innerHeight, scrollY } = window
+            const { offsetHeight } = document.body
+            
+            if (innerHeight + scrollY >= offsetHeight) {
                 loadMoreFilmes()
             }
         }
+
         window.addEventListener("scroll", handleScroll);
         
         return () => window.removeEventListener("scroll", handleScroll)
