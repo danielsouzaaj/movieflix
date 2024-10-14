@@ -107,7 +107,7 @@ form .search {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 0 auto;
+    margin: 0 auto 2rem;
     row-gap: 32px;
 }
 
