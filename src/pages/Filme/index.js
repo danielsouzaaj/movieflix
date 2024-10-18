@@ -67,7 +67,7 @@ function Filme() {
     return (
         <div className="detalhes" style={ {backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.6)), url('https://image.tmdb.org/t/p/original/${filme.backdrop_path}')`}}>
             <div className="container">
-                <Link className="home" to={-1}><span><FaAngleLeft/></span>Home</Link>
+                <Link className="home" to="/"><span><FaAngleLeft/></span>Home</Link>
                 <div className="detalhes-film">
                     <div className="detalhes-info">
                         <h1>{filme.title}</h1>
