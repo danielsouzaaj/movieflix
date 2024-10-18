@@ -34,7 +34,6 @@ function Home() {
     function handleChange(e) {
         setSearch(e.target.value)
         setCurrentPage(1)
-        console.log(filmes, 'aqui')
     }
 
     function handleSubmit(e) {
@@ -143,6 +142,12 @@ function Home() {
                         />
                     </label>
                 </form>
+                {filmes.length === 0 && (
+                    <div className="search_erro">
+                        <h2>Nenhum filme encontrado...</h2>
+                    </div>
+                )}
+
                 <div className="lista-filmes">
                     {filmes.map((filme) => {
                         return (
@@ -172,12 +177,6 @@ function Home() {
                         )
                     })}
                 </div>
-
-                {filmes.length === 0 && (
-                    <div className="search_erro">
-                        <h2>Nenhum filme encontrado...</h2>
-                    </div>
-                )}
             </div>
         </div>
     )
