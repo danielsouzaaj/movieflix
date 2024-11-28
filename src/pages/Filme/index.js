@@ -28,7 +28,7 @@ function Filme() {
         }
         
         loadFilme()
-    })
+    }, [id, browser])
 
     function timeConvert(minutes) {
         let hours = Math.floor(minutes / 60)
